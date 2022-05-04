@@ -21,7 +21,7 @@
 set +H
 
 # source helper functions
-. funcs.sh
+. scripts/funcs.sh
 
 # enable gsutil command (see funcs.sh)
 install_and_activate_gcloud

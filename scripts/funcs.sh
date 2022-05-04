@@ -22,6 +22,9 @@ function uninstall_gcloud {
     rm -rf "$(pwd)/google-cloud-sdk"
 }
 
+#
+# this function relies on var STORAGE_URL
+#
 function split_storage_url {
     PREFIX=$(echo $STORAGE_URL | cut -d'/' -f1-3)
     BRANCH=$(echo $STORAGE_URL | cut -d'/' -f4)

@@ -16,7 +16,7 @@
 # STATIC_JSON json formatted template for the heroku-buildpack-static support
 
 # source helper functions
-. funcs.sh
+. scripts/funcs.sh
 
 # enable gsutil command (see funcs.sh)
 install_and_activate_gcloud

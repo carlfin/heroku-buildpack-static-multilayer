@@ -7,5 +7,5 @@ app_structure = json.load(open(f'{os.environ["BUILD_DIR"]}/app_structure.json'))
 
 if 'toplevel' in app_structure:
     print(app_structure['toplevel'])
-else
+else:
     print('toplevel_not_found')

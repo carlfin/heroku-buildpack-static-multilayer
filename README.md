@@ -24,7 +24,7 @@ This buildpack relies on information from `app_structure.json` file like:
 
 ```json
 {
-  "toplevel": "simple-sso"
+  "toplevel": "simple-sso",
   "nested": {
     "3so-advisor": "advisor",
     "investor": "investor",

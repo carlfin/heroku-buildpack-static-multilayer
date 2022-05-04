@@ -6,4 +6,4 @@ export ENV_DIR=$3
 
 SCRIPT=$(scripts/yield_installer_script.py)
 
-exec $SCRIPT
+exec scripts/$SCRIPT

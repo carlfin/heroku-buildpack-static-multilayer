@@ -30,7 +30,7 @@ GS=${INFO[0]}
 BRANCH=${INFO[2]}
 # we don't use app name here… ( INFO[1] )
 
-TOPLEVEL_APP=$(bin/scripts/yield_toplevel_app.py)
+TOPLEVEL_APP=$(scripts/yield_toplevel_app.py)
 
 # setup static.json template (no folders linked yet)
 OUTPUT_STATIC="$BUILD_DIR/static.json"
@@ -46,7 +46,7 @@ gsutil cp "$GS/$TOPLEVEL_APP/$BRANCH.tar.gz" "$BRANCH.tar.gz"
 tar -C $DOCROOT -xzf "$BRANCH.tar.gz"
 
 # the refresh of static.json must not have a prefix path
-bin/scripts/static_json_generator.py "" "$OUTPUT_STATIC"
+scripts/static_json_generator.py "" "$OUTPUT_STATIC"
 
 # cleanup
 rm -rf *.tar.gz

@@ -34,7 +34,7 @@ INFO=( $(split_storage_url) )
 GS=${INFO[0]}
 # we don't use branch amd app name here… ( INFO[2] INFO[1] )
 
-TOPLEVEL_APP=$(bin/scripts/yield_toplevel_app.py)
+TOPLEVEL_APP=$(scripts/yield_toplevel_app.py)
 
 DOCROOT="$BUILD_DIR/www"
 mkdir $DOCROOT
@@ -49,7 +49,7 @@ tar -C $DOCROOT -xzf "staging.tar.gz"
 rm "staging.tar.gz"
 
 # the refresh of static.json must not have a prefix path
-bin/scripts/static_json_generator.py "" "$OUTPUT_STATIC"
+scripts/static_json_generator.py "" "$OUTPUT_STATIC"
 
 # now we install the nested apps
 

@@ -4,6 +4,6 @@ export BUILD_DIR=$1
 export CACHE_DIR=$2
 export ENV_DIR=$3
 
-SCRIPT=$(bin/scripts/yield_installer_script.py)
+SCRIPT=$(scripts/yield_installer_script.py)
 
 exec $SCRIPT

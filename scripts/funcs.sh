@@ -21,3 +21,10 @@ function install_and_activate_gcloud {
 function uninstall_gcloud {
     rm -rf "$(pwd)/google-cloud-sdk"
 }
+
+function split_storage_url {
+    PREFIX=$(echo $STORAGE_URL | cut -d'/' -f1-3)
+    BRANCH=$(echo $STORAGE_URL | cut -d'/' -f4)
+    APP=$(echo $STORAGE_URL | cut -d'/' -f5)
+    echo "$PREFIX $APP $BRANCH"
+}

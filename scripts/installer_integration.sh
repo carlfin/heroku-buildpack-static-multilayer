@@ -58,21 +58,25 @@ SKIP_TAR_URLS="/(develop|staging|master)\.tar\.gz$"
 
 for APP in $(scripts/yield_nested_apps.py); do
     for TAR_URL in $(gsutil ls "$GS/$APP/*.tar.gz"); do
-          # skip some branches
-          [[ $TAR_URL =~ $SKIP_TAR_URLS ]] && echo "skipping install: $TAR_URL" && continue
-          # extract branch name
-          BRANCH=$(echo $TAR_LOCAL | sed 's/.*\(\/\)\(.*\)$/\2/' | sed 's/\.tar\.gz$//')
-          APP_FOLDER=$(scripts/yield_folder_name.py "$APP")
-          # copy the file to the localfilename from google cloud storage remove location
-          gsutil cp $TAR_URL "nested_branch.tar.gz"
-          # where to unpack the tar and setup this dir
-          TAR_UNPACK_DIR="$DOCROOT/$APP_FOLDER/$BRANCH"
-          mkdir -p $TAR_UNPACK_DIR
-          # now unpack and clean
-          tar -C $TAR_UNPACK_DIR -xzf "nested_branch.tar.gz"
-          rm "nested_branch.tar.gz"
-          # also add routing for this folder now
-          scripts/static_json_generator.py "$APP_FOLDER/$BRANCH" "$OUTPUT_STATIC"
+        # skip some branches
+        [[ $TAR_URL =~ $SKIP_TAR_URLS ]] && echo "skipping install: $TAR_URL" && continue
+        # extract branch name
+        BRANCH=$(echo $TAR_LOCAL | sed 's/.*\(\/\)\(.*\)$/\2/' | sed 's/\.tar\.gz$//')
+        APP_FOLDER=$(scripts/yield_folder_name.py "$APP")
+        # copy the file to the localfilename from google cloud storage remove location
+        gsutil cp $TAR_URL "nested_branch.tar.gz"
+        # where to unpack the tar and setup this dir
+        TAR_UNPACK_DIR="$DOCROOT/$APP_FOLDER/$BRANCH"
+        mkdir -p $TAR_UNPACK_DIR
+        # now unpack and clean
+        tar -C $TAR_UNPACK_DIR -xzf "nested_branch.tar.gz"
+        rm "nested_branch.tar.gz"
+        # also add routing for this folder now
+        scripts/static_json_generator.py "$APP_FOLDER/$BRANCH" "$OUTPUT_STATIC"
+
+        if [ -f $DOCROOT/index.html ]; then
+            sed -i "s/<body>/<body><a href=\"\/$APP_FOLDER\/$BRANCH\">$APP_FOLDER\/$BRANCH<\/a><\/br>/" $DOCROOT/index.html
+        fi
     done
 done
 uninstall_gcloud

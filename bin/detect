@@ -2,7 +2,7 @@
 
 export BUILD_DIR=$1
 
-if [ -f $BUILD_DIR/app_structure.json ];
+if [ -f $BUILD_DIR/app_structure.json ]; then
     echo "static multilayer"
     exit 0
 else

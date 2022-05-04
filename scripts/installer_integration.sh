@@ -61,7 +61,7 @@ for APP in $(scripts/yield_nested_apps.py); do
         # skip some branches
         [[ $TAR_URL =~ $SKIP_TAR_URLS ]] && echo "skipping install: $TAR_URL" && continue
         # extract branch name
-        BRANCH=$(echo $TAR_LOCAL | sed 's/.*\(\/\)\(.*\)$/\2/' | sed 's/\.tar\.gz$//')
+        BRANCH=$(echo $TAR_URL | sed 's/.*\(\/\)\(.*\)$/\2/' | sed 's/\.tar\.gz$//')
         APP_FOLDER=$(scripts/yield_folder_name.py "$APP")
         # copy the file to the localfilename from google cloud storage remove location
         gsutil cp $TAR_URL "nested_branch.tar.gz"

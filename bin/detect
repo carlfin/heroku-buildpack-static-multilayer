@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+export BUILD_DIR=$1
+
+if [ -f $BUILD_DIR/app_structure.json ];
+    echo "static multilayer"
+    exit 0
+else
+    echo "no"
+    exit 100
+fi

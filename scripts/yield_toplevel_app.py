@@ -3,7 +3,7 @@
 import json
 import os
 
-app_structure = json.load(open(f'{os.env["BUILD_DIR"]}/app_strucuture.json'))
+app_structure = json.load(open(f'{os.env["BUILD_DIR"]}/app_structure.json'))
 
 if 'toplevel' in app_structure:
     print(app_structure['toplevel'])

@@ -3,7 +3,7 @@
 import json
 import os
 
-app_structure = json.load(open(f'{os.env["BUILD_DIR"]}/app_strucuture.json'))
+app_structure = json.load(open(f'{os.env["BUILD_DIR"]}/app_structure.json'))
 
 if 'nested' in app_structure:
     print(' '.join(list(map(lambda x: x[0], app_structure['nested']))))

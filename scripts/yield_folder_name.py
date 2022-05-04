@@ -6,7 +6,7 @@ import sys
 
 app = sys.argv[1]
 
-app_structure = json.load(open(f'{os.env["BUILD_DIR"]}/app_strucuture.json'))
+app_structure = json.load(open(f'{os.env["BUILD_DIR"]}/app_structure.json'))
 
 if 'nested' in app_structure and app in app_structure['nested']:
     print(app_structure['nested'][app])

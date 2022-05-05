@@ -75,9 +75,9 @@ for APP in $(scripts/yield_nested_apps.py); do
         scripts/static_json_generator.py "$APP_FOLDER/$BRANCH" "$OUTPUT_STATIC"
         scripts/debug_json_generator.py "$DOCROOT" "$APP" "$BRANCH"
 
-        if [ -f $DOCROOT/index.html ]; then
-            sed -i "s/<body>/<body><a href=\"\/$APP_FOLDER\/$BRANCH\">$APP_FOLDER\/$BRANCH<\/a><\/br>/" $DOCROOT/index.html
-        fi
+        #if [ -f $DOCROOT/index.html ]; then
+        #    sed -i "s/<body>/<body><a href=\"\/$APP_FOLDER\/$BRANCH\">$APP_FOLDER\/$BRANCH<\/a><\/br>/" $DOCROOT/index.html
+        #fi
     done
 done
 

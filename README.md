@@ -20,7 +20,11 @@ Checks for `app_structure.json` in deployed app folder.
 
 ## Configuration
 
-This buildpack relies on information from `app_structure.json` file like:
+Is loaded from codebase (config-file) and heroku config see following sections.
+
+### Configuration File (codebase)
+
+`app_structure.json` file like:
 
 ```json
 {
@@ -31,6 +35,39 @@ This buildpack relies on information from `app_structure.json` file like:
     "admin": "admin"
   },
   "integration": true
+}
+```
+
+
+### Environment (heroku config)
+
+* `GCS_KEY`
+  * contains json google cloud service account json key (which can read under `STORAGE_URL`)
+* `GCS_PROJECT`
+  * google cloud project id which holds bucket from `STORAGE_URL`
+* `STORAGE_URL`
+  * for non-integration mode direct link to single branched download location inside `STORAGE_URL`
+    e.g. `gs://my-cached-builds/my-app-name/single-branch`
+  * for integration mode prefix to bucket is good enough e.g. `gs://my-cached-builds/`
+* `STATIC_JSON`
+  * template for heroku-buildpack-static `static.json` see example below.
+
+
+Example for `STATIC_JSON`:
+
+```json
+{
+  "root": "www/",
+  "routes": {
+  },
+  "redirects": {
+  },
+  "headers": {
+    "/**": {
+      "Cache-Control": "private, no-cache, max-age=1"
+    }
+  },
+  "https_only": true
 }
 ```
 
@@ -53,3 +90,4 @@ Also the toplevel app will be run in integration/debug mode (from its staging br
 ## Resources
 
 * [Heroku Buildpacks API Article](https://devcenter.heroku.com/articles/buildpack-api)
+* [Carlfin Heroku Buildpack Static](https://github.com/carlfin/heroku-buildpack-static)

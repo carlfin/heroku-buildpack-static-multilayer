@@ -28,6 +28,6 @@ function uninstall_gcloud {
 function split_storage_url {
     PREFIX=$(echo $STORAGE_URL | cut -d'/' -f1-3)
     BRANCH=$(echo $STORAGE_URL | cut -d'/' -f4)
-    APP=$(echo $STORAGE_URL | cut -d'/' -f5)
+    APP=$(echo $STORAGE_URL | cut -d'/' -f5 | sed 's/\.tar\.\(gz\|bz2\)$//')
     echo "$PREFIX $BRANCH $APP"
 }

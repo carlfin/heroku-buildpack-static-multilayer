@@ -23,7 +23,7 @@ if app not in data:
     data[app] = list()
 
 if branch not in data[app]:
-    data[app].push(branch)
+    data[app].append(branch)
     # force reorder always
     data[app].sort()
 

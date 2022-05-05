@@ -41,13 +41,31 @@ cp "$ENV_DIR/STATIC_JSON" "$OUTPUT_STATIC"
 DOCROOT="$BUILD_DIR/www"
 mkdir $DOCROOT
 
-gsutil cp "$GS/$TOPLEVEL_APP/$BRANCH.tar.gz" "$BRANCH.tar.gz"
+gsutil cp "$GS/$TOPLEVEL_APP/$BRANCH.tar.gz" "toplevel_app.tar.gz"
 
-tar -C $DOCROOT -xzf "$BRANCH.tar.gz"
+tar -C $DOCROOT -xzf "toplevel_app.tar.gz"
+
+rm "toplevel_app.tar.gz"
 
 # the refresh of static.json must not have a prefix path
 scripts/static_json_generator.py "" "$OUTPUT_STATIC"
 
+# install each nested app from here (branch is fixed!)
+for APP in $(scripts/yield_nested_apps.py); do
+    APP_FOLDER=$(scripts/yield_folder_name.py "$APP")
+    # set exact download location
+    TAR_URL="$GS/$APP/$BRANCH.tar.gz"
+    # copy the file to the localfilename from google cloud storage remote location
+    gsutil cp $TAR_URL "nested.tar.gz"
+    # where to unpack the tar and setup this dir
+    TAR_UNPACK_DIR="$DOCROOT/$APP_FOLDER"
+    mkdir -p $TAR_UNPACK_DIR
+    # now unpack and clean
+    tar -C $TAR_UNPACK_DIR -xzf "nested.tar.gz"
+    rm "nested.tar.gz"
+    # also add routing for this folder now
+    scripts/static_json_generator.py "$APP_FOLDER" "$OUTPUT_STATIC"
+done
+
 # cleanup
-rm -rf *.tar.gz
 uninstall_gcloud

@@ -36,6 +36,11 @@ if os.path.isfile(MANIFEST_FILE):
         # they follow this scheme: 'commit XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX …(+)'
         data['headers']['/**']['X-Carlconnectversion'] = f.read()[7:47].decode('ASCII')
 
-data['routes']['/' + location + '/**'] = location + '/index.html'
+if len(location) > 0:
+    # nested / multilayer case
+    data['routes']['/' + location + '/**'] = location + '/index.html'
+else:
+    # toplevel case
+    data['routes']['/**'] = 'index.html'
 
 json.dump(data, open(static_json, 'w'), indent=2)

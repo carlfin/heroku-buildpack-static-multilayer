@@ -48,9 +48,6 @@ gsutil cp "$GS/$TOPLEVEL_APP/staging.tar.gz" "staging.tar.gz"
 tar -C $DOCROOT -xzf "staging.tar.gz"
 rm "staging.tar.gz"
 
-# the refresh of static.json must not have a prefix path
-scripts/static_json_generator.py "" "$OUTPUT_STATIC"
-
 # now we install the nested apps
 
 # skip these tar url suffixes
@@ -80,5 +77,8 @@ for APP in $(scripts/yield_nested_apps.py); do
         #fi
     done
 done
+
+# top level final statement to insert statement as last key on json
+scripts/static_json_generator.py "" "$OUTPUT_STATIC"
 
 uninstall_gcloud

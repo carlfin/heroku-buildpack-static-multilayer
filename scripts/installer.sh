@@ -47,9 +47,6 @@ tar -C $DOCROOT -xzf "toplevel_app.tar.gz"
 
 rm "toplevel_app.tar.gz"
 
-# the refresh of static.json must not have a prefix path
-scripts/static_json_generator.py "" "$OUTPUT_STATIC"
-
 # install each nested app from here (branch is fixed!)
 for APP in $(scripts/yield_nested_apps.py); do
     APP_FOLDER=$(scripts/yield_folder_name.py "$APP")
@@ -66,6 +63,9 @@ for APP in $(scripts/yield_nested_apps.py); do
     # also add routing for this folder now
     scripts/static_json_generator.py "$APP_FOLDER" "$OUTPUT_STATIC"
 done
+
+# top level final statement to insert statement as last key on json
+scripts/static_json_generator.py "" "$OUTPUT_STATIC"
 
 # cleanup
 uninstall_gcloud
